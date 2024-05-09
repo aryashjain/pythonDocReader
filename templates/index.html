@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload</title>
+    <style>body {
+        text-align: center;
+        background-color:#141c26;
+        color: white; /* Set text color to white for better visibility */
+    }
+    .button{
+        background-color: #afd4b0; /* Green */
+        border: none;
+        color: rgb(18, 17, 17);
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 12px;
+    }</style>
+</head>
+<body style="background-color:#121921">
+    <h1>Upload Document</h1>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file"  class="button">
+        <input type="submit" value="Upload" class="button" id="myButton"  style="background-color: #8ba1ea;">
+    </form>
+    {% if output_file %}
+    <h2>The document is Processed </h2>
+    {% endif %}
+
+    <p>After processing find the processed file in /uploads as output_document</p>
+ 
+
+<script>
+  // Function to display the alert
+  function showAlert() {
+    
+      setTimeout(window.alert("Proccessing....."),500);
+  }
+
+  // Adding onclick event handler to the button
+  document.getElementById("myButton").onclick = showAlert;
+</script>
+
+ 
+</body>
+</html>
