@@ -14,9 +14,12 @@ def extract_rows_by_first_entity(docx_file, entity_names):
             # Check if the value matches any of the specified entity names
             for entity_name in entity_names:
                 if first_cell_value.lower() == entity_name.lower() and entity_name not in st:
-                    rows_dict[entity_name].append([cell.text.strip() for cell in row.cells])
-                    if(entity_name!="InternalNote"):
+                    if(entity_name!="Quantity"):
+                        rows_dict[entity_name].append([cell.text.strip() for cell in row.cells])
+                    if(entity_name!="InternalNote" and entity_name != "Quantity"):
                         st.add(entity_name)
+                    if(entity_name=="Quantity"):
+                        rows_dict["InternalNote"].append([cell.text.strip() for cell in row.cells])
                     break
 
     return rows_dict
@@ -47,7 +50,7 @@ def main():
     docx_file = 'test1.docx'
 
 
-    entity_names = ["Overview", "Owner", "Event Type", "Currency", "Timing Rules", "Publish time", "Due Date", "Currency Rules", "Allow Participants to select bidding currency","Inco Term", "Inco Term Location", "Requested Delivery Date", "InternalNote" ]
+    entity_names = ["Overview", "Owner", "Event Type", "Currency", "Timing Rules", "Publish time", "Due Date", "Currency Rules", "Allow Participants to select bidding currency","Inco Term", "Inco Term Location", "Requested Delivery Date","Quantity", "InternalNote" ]
 
     output_file = 'output.docx'  
     rows_dict = extract_rows_by_first_entity(docx_file, entity_names)

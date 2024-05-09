@@ -37,7 +37,7 @@ def upload_file():
         file.save(filename)
 
         # Process the uploaded file
-        entity_names = ["Overview", "Owner", "Event Type", "Currency", "Timing Rules", "Publish time", "Due Date", "Currency Rules", "Allow Participants to select bidding currency","Inco Term", "Inco Term Location", "Requested Delivery Date", "InternalNote" ]
+        entity_names = ["Overview", "Owner", "Event Type", "Currency", "Timing Rules", "Publish time", "Due Date", "Currency Rules", "Allow Participants to select bidding currency","Inco Term", "Inco Term Location", "Requested Delivery Date", "Quantity","InternalNote" ]
 
         rows_dict = extract_rows_by_first_entity(filename, entity_names)
       
