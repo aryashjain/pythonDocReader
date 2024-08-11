@@ -77,7 +77,7 @@ def upload_file():
         print(rowsHTML)
         for i in range(len(rows_2D)):   
             text = rows_2D[i][6]
-            f1=text.replace(':',': \n')
+            f1=text.replace(':',': \n\n')
             print(text)
             rows_2D[i][6] = f1.replace(',', ', \n\n')
   
@@ -89,7 +89,7 @@ def upload_file():
         for i in range(len(rowsHTML)):   
             t1 = rows_2D[i][6]
             html_text = t1.replace(',', ', <br/><br/>')
-            rowsHTML[i][6] = html_text.replace(':', ': <br/>')
+            rowsHTML[i][6] = html_text.replace(':', ': <br/><br/>')
 
         return render_template('index.html', d1 = d1, d2 = d2, d3=d3, d4=d4, data=rowsHTML, output_file=output_file_link)
 
