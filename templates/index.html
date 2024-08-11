@@ -1,156 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
     <title>Document Upload</title>
-    <style>table {
-        border-collapse: collapse;
-        width: 50%;
-    }
-    th, td {
-        border: 1px solid #4f5f93;
-        text-align: left;
-        padding: 8px;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    body {
-        text-align: center;
-        background-color:#fefefe;
-        color: rgb(45, 42, 42); /* Set text color to white for better visibility */
-    }
-    .button{
-        content: '';
-        background-color: #afd4b0; /* Green */
-        cursor: pointer;
-        border: 1px solid rgb(33, 32, 32);
-        color: rgb(18, 17, 17);
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        transition-duration: 0.4s;
-        border-radius: 12px;
-    }
-    .center {
-  margin-left: auto;
-  margin-right: auto;
-}</style>
 </head>
+
 <body style="background-color:#d8d8d8">
-    <h1>CLIENT INQUIRY FORM</h1>
-    {% if error %}
+    <h1>CLIENT INQUIRY FORM</h1> {% if error %}
     <p style="color: red;">{{ error }}</p>
     {% endif %}
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file"  class="button"  style="background-color: #729de7;">
-        <input type="submit" value="Upload" class="button" id="myButton"  style="background-color: #64eb96;">
-        <form action="/process" method="post"   >
-            <input type="submit" value="Reset" class="button" style="background-color: #ca932e;">
+        <input type="file" name="file" class="button" style="background-color: #729de7;">
+        <input type="submit" value="Upload" class="button" id="myButton" style="background-color: #64eb96;">
+        <form action="/process" method="post">
+            <input type="submit" onclick="resetForm()" value="Reset" class="button" style="background-color: #ca932e;">
         </form>
     </form>
-  
+
     {% if output_file %}
-    <h2>The document is Processed </h2>
-    {% endif %}
+    <h2>The document is Processed </h2> {% endif %}
 
     <p>After processing is done! find the processed file in /uploads as output_document</p>
     <br>
-    <br>
-    <table class="center">
-        <tr>
-            <th>Overview</th>
-            <th>Value</th>
-        </tr>
-        {% if d1 %}
-        {% for key, value in d1.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </table>
-    <br>
-    <br>
-    <table class="center">
-        <tr>
-            <th>Timing Rules</th>
-            <th>Value</th>
-        </tr>
-        {% if d2 %}
-        {% for key, value in d2.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </table>
-    <br>
-    <br>
-    <table class="center">
-        <tr>
-            <th>Currency Rules</th>
-            <th>Value</th>
-        </tr>
-        {% if d3 %}
-        {% for key, value in d3.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </table>
-    <br>
-    <br>
-    <table class="center">
-        <tr>
-            <th>Information No 1</th>
-            <th>Value</th>
-        </tr>
-        {% if d4 %}
-        {% for key, value in d4.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-    </table>
-    <br>
-    <br>
-    
-    <table class="center">
-        {% if data %}
-        {% for cell in data[0] %}
-            <th>{{ cell }}</th>
-            {% endfor %}
-        <!-- Iterate over rows -->
-        {% for row in data %}
-        <tr>
-            <!-- Iterate over cells in each row -->
-            {% for cell in row %}
-           
-            <td>{{ cell }}</td>
-           
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        {% else %}
-        <th>
-            Item No	</th>
-            <th>Item Description</th>	<th>Quantity</th>	<th>UOM</th>	<th>Requested Delivery Date</th>	<th>Price</th>	<th>InternalNote</th>
-        {% endif %}
-       
-    </table>
+    <br> {% if d1 %}
+    <div id="tables">
+        <table class="center">
+            <tr>
+                <th>Overview</th>
+                <th>Value</th>
+            </tr>
+            {% if d1 %} {% for key, value in d1.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %} {% endif %}
 
- 
+        </table>
+        <br>
+        <br>
+        <table class="center">
+            <tr>
+                <th>Timing Rules</th>
+                <th>Value</th>
+            </tr>
+            {% if d2 %} {% for key, value in d2.items() %}
+            <tr>
+                <td>{{ key|safe }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %} {% endif %}
+        </table>
+        <br>
+        <br>
+        <table class="center">
+            <tr>
+                <th>Currency Rules</th>
+                <th>Value</th>
+            </tr>
+            {% if d3 %} {% for key, value in d3.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %} {% endif %}
+        </table>
+        <br>
+        <br>
+        <table class="center">
+            <tr>
+                <th>Information No 1</th>
+                <th>Value</th>
+            </tr>
+            {% if d4 %} {% for key, value in d4.items() %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %} {% endif %}
+        </table>
+        <br>
+        <br>
+
+        <table class="center">
+            {% if data %} {% for cell in data[0] %}
+            <th>{{ cell|safe }}</th>
+            {% endfor %}
+            <!-- Iterate over rows -->
+            {% for row in data %}
+            <tr>
+                <!-- Iterate over cells in each row -->
+                {% for cell in row %}
+                <td>{{ cell|safe }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %} {% else %}
+   
+            {% endif %}
+
+        </table>
+    </div>
+
+    {% endif %}
 </body>
+
 </html>

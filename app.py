@@ -72,12 +72,26 @@ def upload_file():
         "Inco Term":rows_dict4["Inco Term"][0][2] if len(rows_dict4["Inco Term"]) > 0 else '-',
         "Inco Term Location":rows_dict4["Inco Term Location"][0][2] if len(rows_dict4["Inco Term Location"]) > 0 else '-',
         }
+
+        rowsHTML=rows_2D
+        print(rowsHTML)
+        for i in range(len(rows_2D)):   
+            text = rows_2D[i][6]
+            f1=text.replace(':',': \n')
+            print(text)
+            rows_2D[i][6] = f1.replace(',', ', \n\n')
+  
+
         output_file = os.path.join(app.config['UPLOAD_FOLDER'], 'output_document.docx')
 
         write_to_new_docx(rows_dict1,rows_dict2,rows_dict3,rows_dict4,rows_2D, output_file)
         output_file_link = f"/download/{output_file.split('/')[-1]}"
-        
-        return render_template('index.html', d1 = d1, d2 = d2, d3=d3, d4=d4, data=rows_2D, output_file=output_file_link)
+        for i in range(len(rowsHTML)):   
+            t1 = rows_2D[i][6]
+            html_text = t1.replace(',', ', <br/><br/>')
+            rowsHTML[i][6] = html_text.replace(':', ': <br/>')
+
+        return render_template('index.html', d1 = d1, d2 = d2, d3=d3, d4=d4, data=rowsHTML, output_file=output_file_link)
 
     return render_template('index.html')
 
