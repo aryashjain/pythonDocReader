@@ -78,7 +78,6 @@ def upload_file():
         for i in range(len(rows_2D)):   
             text = rows_2D[i][6]
             f1=text.replace(':',': \n\n')
-            print(text)
             rows_2D[i][6] = f1.replace(',', ', \n\n')
   
 
