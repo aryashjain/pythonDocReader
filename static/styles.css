@@ -1,0 +1,36 @@
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+th, td {
+    border: 1px solid #4f5f93;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+body {
+    text-align: center;
+    background-color:#fefefe;
+    color: rgb(45, 42, 42); /* Set text color to white for better visibility */
+}
+.button{
+    content: '';
+    background-color: #afd4b0; /* Green */
+    cursor: pointer;
+    border: 1px solid rgb(33, 32, 32);
+    color: rgb(18, 17, 17);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    border-radius: 12px;
+}
+.center {
+margin-left: auto;
+margin-right: auto;
+}
