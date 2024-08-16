@@ -10,6 +10,28 @@ ALLOWED_EXTENSIONS = {'docx', 'doc'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+def insert_newlines( text,case):
+    arr = [
+    "Serial number (typical):", "Manufacturer Part Number :", "THIS PART IS USED FOR:",
+    "Basic Data Text:", "Long Description", "Inspection Text:", "Parent Equipment:",
+    "Classification Text:", "OEM Serial Number :", "Manufacturer number :", 
+    "OEM Model Number :", "Drawing number:", "Sub Assesmbly:", "Position Number :", 
+    "Assembly Number :", "Item Description:", "Manufacturer:", "PGCODE:", "Crossref:",
+    "Old Number:", "Characteristics :", "MPN Text:", "Tag Number :", "Part Number :", 
+    "Model(*):", "MODEL:", "P/N", "Class :", "Certificate:", "Description(*):"
+    ]
+
+    
+    # Step 3 & 4: Iterate over the phrases and insert newlines
+    for phrase in arr:
+        if(case):
+            text = text.replace(phrase, "\n" + phrase)
+        else:
+            text = text.replace(phrase,"<br/>"+phrase)
+    
+    return text
+
 # Function to check if a file has an allowed extension
 def allowed_file(filename):
     return '.' in filename and \
@@ -74,11 +96,13 @@ def upload_file():
         }
 
         rowsHTML=rows_2D
-        print(rowsHTML)
+
+  
         for i in range(len(rows_2D)):   
             text = rows_2D[i][6]
-            f1=text.replace(':',': \n\n')
-            rows_2D[i][6] = f1.replace(',', ', \n\n')
+            mst= insert_newlines(text,True)
+            rows_2D[i][6] =mst
+
   
 
         output_file = os.path.join(app.config['UPLOAD_FOLDER'], 'output_document.docx')
@@ -87,9 +111,8 @@ def upload_file():
         output_file_link = f"/download/{output_file.split('/')[-1]}"
         for i in range(len(rowsHTML)):   
             t1 = rows_2D[i][6]
-            html_text = t1.replace(',', ', <br/><br/>')
-            rowsHTML[i][6] = html_text.replace(':', ': <br/><br/>')
-
+            modified_str = insert_newlines(t1,False)
+            rowsHTML[i][6] = modified_str
         return render_template('index.html', d1 = d1, d2 = d2, d3=d3, d4=d4, data=rowsHTML, output_file=output_file_link)
 
     return render_template('index.html')
