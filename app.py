@@ -26,9 +26,9 @@ def insert_newlines( text,case):
     # Step 3 & 4: Iterate over the phrases and insert newlines
     for phrase in arr:
         if(case):
-            text = text.replace(phrase, "\n" + phrase)
+            text = text.replace(phrase, "\n" +"\n" + phrase)
         else:
-            text = text.replace(phrase,"<br/>"+phrase)
+            text = text.replace(phrase,"<br/> <br/>"+phrase)
     
     return text
 
